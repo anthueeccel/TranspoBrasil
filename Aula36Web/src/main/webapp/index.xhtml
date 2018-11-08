@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Minha Primeira Aplicação JSF</title>
+</h:head>
+
+<h:body>
+	<h3>JSF 2.2 Hello World</h3>
+
+	<h:form>
+		<h3>
+			Seu nome:
+			<h:inputText value="#{timeBeam.nome}"></h:inputText>
+		</h3>
+		<h3>
+			Time futebol:
+			<h:inputText value="#{timeBeam.timeFutebol}"></h:inputText>
+		</h3>
+		<h3>
+			Time futebol:
+			<h:inputText value="#{timeBeam.timePosicao}"></h:inputText>
+		</h3>
+
+
+		<h:commandButton value="enviar" action="#{timeBeam.enviar()}"></h:commandButton>
+
+
+	</h:form>
+
+</h:body>
+</html>
