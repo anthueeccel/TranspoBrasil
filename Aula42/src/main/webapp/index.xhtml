@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<title>Index|Produtos</title>
+	<style>
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	box-sizing: border-box;
+}
+
+.main {
+	width: 1200px;
+	margin: 10px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.header {
+	padding-left: 50px;
+	padding-right: 50px;
+	width: 100%;
+	height: 200px;
+	background-color: #eee;
+	height: 200px;
+	background-color: #eee;
+	padding: 10px;
+}
+
+.header h3 {
+	font-size: 36px;
+	color: #333;
+	margin-bottom: 40px;
+}
+
+.content {
+	width: 100%;
+	margin: 10px 0;
+	padding: 20px;
+	align-content: center;
+}
+</style>
+</h:head>
+<h:body>
+	<div class="header">
+		<h3>Acesso ao sistema</h3>
+
+		<h:form>
+			<p:growl id="messages" />
+
+			<h:panelGrid columns="6" style="margin-bottom:10px" cellpadding="5">
+				<p:outputLabel for="basic" value="Basic:" />
+				<p:splitButton id="basic" value="Save" action="#{buttonView.save}"
+					update="messages" icon="ui-icon-disk">
+					<p:menuitem value="Update" action="#{buttonView.update}"
+						update="messages" icon="ui-icon-refresh" />
+					<p:menuitem value="Delete" action="#{buttonView.delete}"
+						ajax="false" icon="ui-icon-closethick" />
+					<p:separator />
+					<p:menuitem value="Homepage" url="http://www.primefaces.org"
+						icon="ui-icon-heart" />
+				</p:splitButton>
+
+				<p:outputLabel for="dynaButton" value="Programmatic Menu:" />
+				<p:splitButton id="dynaButton" value="Save"
+					model="#{buttonView.model}" action="#{buttonView.save}"
+					update="messages" icon="ui-icon-disk"></p:splitButton>
+
+				<p:outputLabel for="advanced" value="Advanced:" />
+				<p:splitButton id="advanced" value="Save"
+					action="#{buttonView.save}" update="messages" icon="ui-icon-disk"
+					filter="true" filterMatchMode="startsWith">
+					<p:submenu label="Ajax">
+						<p:menuitem value="Save" action="#{buttonView.save}"
+							update="messages" icon="ui-icon-disk" />
+						<p:menuitem value="Update" action="#{buttonView.update}"
+							update="messages" icon="ui-icon-refresh" />
+					</p:submenu>
+					<p:submenu label="Non-Ajax">
+						<p:menuitem value="Delete" action="#{buttonView.delete}"
+							update="messages" ajax="false" icon="ui-icon-closethick" />
+					</p:submenu>
+					<p:submenu label="Navigations">
+						<p:menuitem value="External" url="http://www.primefaces.org"
+							icon="ui-icon-heart" />
+					</p:submenu>
+					<p:separator />
+					<p:menuitem value="sInternal" icon="ui-icon-refresh" />
+				</p:splitButton>
+			</h:panelGrid>
+		</h:form>
+	
+	</div>
+	<div class="main">
+		<h2>Página inicial</h2>
+	<h:form>
+			<p:growl id="message" showDetail="true" />
+
+			<p:commandButton value="Você sabia?"
+				action="#{dialogView.destroyWorld}" update="message">
+				<p:confirm header="Confirmation"
+					message="Que o sabiá sabia assobiar?"
+					icon="pi pi-exclamation-triangle" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="/resources/icon/star.png" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+		
+		<div class="content">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<f:facet name="header">
+						<h:outputText value="Preencha os dados solicitados" />
+					</f:facet>
+
+					<h:outputLabel for="nome">Nome</h:outputLabel>
+					<h:panelGroup>
+						<p:inputText id="nome" size="50" value="#{produtosBean.nome}"
+							placeholder="nome" />
+					</h:panelGroup>
+
+					<h:outputLabel for="senha">Senha</h:outputLabel>
+					<h:panelGroup>
+						<p:password id="senha" value="#{produtosBean.senha}"
+							placeholder="senha" />
+					</h:panelGroup>
+
+					<h:outputLabel for="senha">Senha (c/ feedback)</h:outputLabel>
+					<h:panelGroup>
+						<p:password id="senha2" value="#{produtosBean.senha}"
+							feedback="true" placeholder="senha" />
+					</h:panelGroup>
+
+					<h:outputLabel>Aceito os termos e condições (boolean):</h:outputLabel>
+					<h:panelGroup>
+						<p:selectBooleanButton id="termos" value="#{produtosBean.termos}"
+							onLabel="Sim" offLabel="Não" style="width:60px" />
+					</h:panelGroup>
+
+					<h:outputLabel></h:outputLabel>
+					<h:panelGroup>
+						<p:growl id="growl" life="2000" />
+						<p:commandButton value="Acessar" id="acessar" ajax="false "
+							update="growl" action="#{produtosBean.login('nome')}"
+							style="margin-right:20px;" styleClass="ui-priority-primary" />
+					</h:panelGroup>
+				</h:panelGrid>
+				<p:separator />
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel>Acesso de usuários não-cadastrados</h:outputLabel>
+					<h:panelGroup>
+						<p:button outcome="/produtos/formulario.jsf" value="Formulario"
+							action="#{produtosBean.salvar()}" icon="ui-icon-arrowthick-1-e"
+							style="margin-right:20px;">
+						</p:button>
+						<p:button outcome="/produtos/panel.jsf" value="Panel"
+							icon="ui-icon-arrowthick-1-e" disabled="false"
+							style="margin-right:20px;">
+						</p:button>
+						<p:button outcome="/produtos/charts.jsf" value="Gráficos"
+							action="#{produtosBean.salvar()}" icon="ui-icon-arrowthick-1-e"
+							style="margin-right:20px;">
+						</p:button>
+						<p:button outcome="/produtos/documentos.jsf" value="Documentos"
+							action="#{produtosBean.salvar()}" icon="ui-icon-arrowthick-1-e"
+							style="margin-right:20px;">
+						</p:button>
+					</h:panelGroup>
+
+
+				</h:panelGrid>
+			</h:form>
+
+
+
+			<p:graphicImage value="../resources/transpobrasil/imagem1.jpg" />
+		</div>
+	</div>
+</h:body>
+</html>

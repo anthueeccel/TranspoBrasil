@@ -1,0 +1,156 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<title>JSF|Formulário</title>
+	<style>
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	box-sizing: border-box;
+}
+
+.main {
+	width: 1100px;
+	margin: 10px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.header {
+	padding-left: 50px;
+	padding-right: 50px;
+	width: 1100px;
+	height: 130px;
+	background-color: #eee;
+	padding: 10px;
+}
+
+.header h3 {
+	font-size: 36px;
+	color: #333;
+	margin-bottom: 40px;
+}
+
+.content {
+	width: 1100px;
+	margin: 10px 0;
+	padding: 20px;
+	align-content: center;
+}
+
+.right div {
+	float: right;
+}
+
+.ui-stack {
+	z-index: 1000;
+}
+</style>
+</h:head>
+<h:body>	
+		<p:stack icon="/resources/menu/stack.png" expanded="true">
+			<p:menuitem value="Home" icon="/resources/menu/home.png" url="/index.jsf" />
+			<p:menuitem value="Formulario" icon="/resources/menu/music.png" url="/produtos/formulario.jsf" />
+			<p:menuitem value="Painel" icon="/resources/menu/video.png" url="/produtos/panel.jsf" />
+			<p:menuitem value="Gráficos" icon="/resources/menu/email.png"
+				url="/produtos/charts.jsf" />
+			<p:menuitem value="Documentos" icon="/resources/menu/portfolio.png"
+			url="/produtos/documentos.jsf" />
+		</p:stack>
+	<div class="header">
+		<h4>
+			<h:outputFormat value="Usuário logado: {0} ">
+				<f:param value="#{produtosBean.nome}"></f:param>
+			</h:outputFormat>
+		</h4>
+		<br />
+		<h3>Cadastro de produtos</h3>
+		
+	</div>
+	<div class="main">
+		<p:growl id="msgs" />
+		<h2>Preencha os dados abaixo</h2>
+		<div class="content">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="2">
+					<f:facet name="header">
+						<h:outputText value="Todos os dados devem ser preenchidos" />
+					</f:facet>
+
+
+					<h:outputLabel for="produto">Produto</h:outputLabel>
+					<h:panelGroup>
+						<p:inputText id="produto" size="50"
+							value="#{produtosBean.produto}" placeholder="produto" />
+					</h:panelGroup>
+
+					<h:outputLabel for="descricao">Descricao</h:outputLabel>
+					<h:panelGroup>
+						<p:inputTextarea placeholder="descreva o produto"
+							value="#{produtosBean.descricao}" cols="52"></p:inputTextarea>
+					</h:panelGroup>
+
+					<h:outputLabel for="descricao">Descricao c/ contagem</h:outputLabel>
+					<h:panelGroup>
+						<p:inputTextarea rows="5" cols="52" counter="display"
+							maxlength="100" counterTemplate="{0} caracteres restantes."
+							autoResize="false" />
+						<br />
+						<h:outputText id="display" />
+					</h:panelGroup>
+
+					<h:outputLabel for="categoria">Categoria</h:outputLabel>
+					<h:panelGroup>
+						<p:selectOneListbox>
+							<f:selectItems value="#{produtosBean.categoria}"></f:selectItems>
+						</p:selectOneListbox>
+					</h:panelGroup>
+
+					<h:outputLabel for="categoria">Categoria</h:outputLabel>
+					<h:panelGroup>
+						<p:selectOneMenu>
+							<f:selectItems value="#{produtosBean.categoria}"></f:selectItems>
+						</p:selectOneMenu>
+					</h:panelGroup>
+
+					<h:outputLabel for="quantidade">Quantidade</h:outputLabel>
+					<h:panelGroup>
+						<p:spinner />
+					</h:panelGroup>
+					
+					<p></p>
+
+					<h:panelGroup>
+						<p:growl id="growl" life="2000" />
+
+						<p:commandButton value="Salvar" id="salvar" update="growl"
+							action="#{produtosBean.salvar()}" style="margin-right:20px;"
+							styleClass="ui-priority-primary" />
+
+						<p:commandButton value="Non-Ajax Submit" id="nonAjax"
+							action="#{buttonView.buttonAction}" style="margin-right:20px;"
+							ajax="false" />
+
+						<p:commandButton value="With Icon" id="withIcon"
+							action="#{buttonView.buttonAction}" update="growl"
+							style="margin-right:20px;" icon="pi pi-save" />
+
+						<p:commandButton action="#{buttonView.buttonAction}" id="iconOnly"
+							update="growl" style="margin-right:20px;" icon="pi pi-save"
+							title="Icon Only" />
+
+					</h:panelGroup>
+
+				</h:panelGrid>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>
