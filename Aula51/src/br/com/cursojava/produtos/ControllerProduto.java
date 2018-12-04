@@ -1,4 +1,4 @@
-package br.com.cursojava.contatos;
+package br.com.cursojava.produtos;
 
 import java.util.List;
 
@@ -14,24 +14,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-@Path("contatos")
-public class ControllerContato {
+import br.com.cursojava.produtos.Produto;
 
-	private RepositorioContato repos = new RepositorioContato();
-
+@Path("produtos")
+public class ControllerProduto {
+	
+	RepositorioProduto repos = new RepositorioProduto();
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Contato> getContatos() {
+	public List<Produto> getProdutos() {
 		return repos.buscarTodos();
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarContatoPorId(@PathParam("id") Integer id) {
-		Contato contato = repos.buscarPorId(id);
-		if (contato != null) {
-			return Response.ok(contato).build();
+	public Response buscarProdutoPorId(@PathParam("id") Integer id) {
+		Produto produto = repos.buscarPorId(id);
+		if (produto != null) {
+			return Response.ok(produto).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -41,11 +43,11 @@ public class ControllerContato {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response inserir(Contato contato) {
-		if (contato != null && contato.getId() == null) {
-			boolean result = repos.salvar(contato);
+	public Response inserir(Produto produto) {
+		if (produto != null && produto.getId() == null) {
+			boolean result = repos.salvar(produto);
 			if (result) {
-				return Response.status(Status.CREATED).entity(contato).build();
+				return Response.status(Status.CREATED).entity(produto).build();
 			}
 		}
 		return Response.status(Status.NOT_ACCEPTABLE).build();
@@ -55,12 +57,12 @@ public class ControllerContato {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizar(@PathParam("id") Integer id, Contato contato) {
-		Contato contatoNaBase = repos.buscarPorId(id);
-		if (contatoNaBase != null) {
-			contato.setId(id);
-			repos.salvar(contato);
-			return Response.status(Status.ACCEPTED).entity(contato).build();
+	public Response atualizar(@PathParam("id") Integer id, Produto produto) {
+		Produto produtoNaBase = repos.buscarPorId(id);
+		if (produtoNaBase != null) {
+			produto.setId(id);
+			repos.salvar(produto);
+			return Response.status(Status.ACCEPTED).entity(produto).build();
 		} else {
 			return Response.status(Status.NOT_ACCEPTABLE).build();
 		}

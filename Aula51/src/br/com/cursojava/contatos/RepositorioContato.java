@@ -9,13 +9,13 @@ public class RepositorioContato {
 	private static List<Contato>lista = new ArrayList<>();
 	private static Integer count = 1;
 	static{
-		lista.add(new Contato(count++, "Fred", "f@fred.com", "123456789"));
+		lista.add(new Contato(count++, "Fred", "frederico@teste.com", "123456789"));
 		lista.add(new Contato(count++, "Maria", "m@teste.com", "789456123"));
-		lista.add(new Contato(count++, "José", "j@fred.com", "369258147"));
-		lista.add(new Contato(count++, "Adão", "a@fred.com", "147258369"));
-		lista.add(new Contato(count++, "Lucius", "l@fred.com", "258369147"));
-		lista.add(new Contato(count++, "Lucy", "y@fred.com", "789456123"));
-		lista.add(new Contato(count++, "Lucian", "n@fred.com", "159267348"));
+		lista.add(new Contato(count++, "José", "jose@teste.com", "369258147"));
+		lista.add(new Contato(count++, "Adão", "paraiso@teste.com", "147258369"));
+		lista.add(new Contato(count++, "Tibúrcio", "tibinho@teste.com", "258369147"));
+		lista.add(new Contato(count++, "Lucy", "lu@teste.com", "789456123"));
+		lista.add(new Contato(count++, "Eldésio", "eld@teste.com", "159267348"));
 	}
 	
 	public List<Contato> buscarTodos(){
